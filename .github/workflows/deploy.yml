@@ -19,9 +19,6 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: clb-vo
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -34,6 +31,6 @@ jobs:
       - run: python xuat_web.py
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: clb-vo/_site
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
