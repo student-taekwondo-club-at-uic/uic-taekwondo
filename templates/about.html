@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}About us · {{ clb.ten }}{% endblock %}
+{% block content %}
+<section class="container">
+  <h1 class="page-title">About us</h1>
+
+  <!-- Mục 1: ảnh bên trái -->
+  <div class="about">
+    <img src="{{ url_for('static', filename='images/about.jpg') }}" alt=""
+         onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+    <div>
+      <h2>Who are we?</h2>
+      <ul>
+        <li><strong>Student Taekwondo Club at UIC</strong> is a student organization at the University of Illinois at Chicago.</li>
+        <li>We are a group of students who share a passion for Taekwondo and martial arts.</li>
+        <li>We welcome students of all skill levels, from beginners to experienced practitioners.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mục 2: ảnh bên phải (class "dao") -->
+  <div class="about dao">
+    <img src="{{ url_for('static', filename='images/about-2.jpg') }}" alt=""
+         onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+    <div>
+      <h2>What do we practice?</h2>
+      <ul>
+        <li><strong>Sparring:</strong> training reflexes, endurance, and competition skills.</li>
+        <li><strong>Poomsae:</strong> training techniques, precision, and the spirit of martial arts.</li>
+        <li><strong>Conditioning:</strong> training strength, flexibility, and overall fitness, board breaking.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Mục 3: ảnh bên trái -->
+  <div class="about">
+    <img src="{{ url_for('static', filename='images/about-3.jpg') }}" alt=""
+         onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+    <div>
+      <h2>Training schedule</h2>
+      <ul>
+        <li><strong>MONDAY - WEDNESDAY</strong>: 19:00PM - 21:00PM at The MAC Suite (UIC Gym)</li>
+        <li>We also participate in tournaments and events throughout the year.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

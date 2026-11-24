@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ clb.ten }}{% endblock %}</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+</head>
+<body>
+  <header class="navbar">
+    <a href="{{ url_for('trang_chu') }}" class="logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt=""
+           onerror="this.style.display='none'">
+      {{ clb.ten }}
+    </a>
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-btn">☰</label>
+    <nav>
+      <a href="{{ url_for('about') }}" class="{{ 'active' if request.endpoint == 'about' }}">About us</a>
+      <a href="{{ url_for('ban_hoi_dong') }}" class="{{ 'active' if request.endpoint == 'ban_hoi_dong' }}">The Executive Board</a>
+      <a href="{{ url_for('trac_nghiem') }}" class="{{ 'active' if request.endpoint == 'trac_nghiem' }}">Fun quizz</a>
+      <a href="{{ url_for('su_kien') }}" class="{{ 'active' if request.endpoint == 'su_kien' }}">Events</a>
+      <a href="{{ url_for('timeline') }}" class="{{ 'active' if request.endpoint == 'timeline' }}">Timeline</a>
+      <a href="{{ url_for('get_involved') }}" class="{{ 'active' if request.endpoint == 'get_involved' }}">Get Involved</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>© 2026 {{ clb.ten }} · <a href="{{ clb.instagram }}" target="_blank">Instagram</a> · {{ clb.email }}</p>
+  </footer>
+
+  <script>
+    // Album ảnh: gom thành 1 hàng ngang, có nút ‹ › để lướt
+    document.querySelectorAll(".album").forEach(album => {
+      const khung = document.createElement("div");
+      khung.className = "album-wrap";
+      album.before(khung);
+      khung.append(album);
+
+      const trai = document.createElement("button");
+      const phai = document.createElement("button");
+      trai.type = phai.type = "button";
+      trai.className = "nut-luot trai"; trai.textContent = "‹";
+      phai.className = "nut-luot phai"; phai.textContent = "›";
+      khung.append(trai, phai);
+
+      trai.onclick = () => album.scrollBy({ left: -album.clientWidth * 0.8, behavior: "smooth" });
+      phai.onclick = () => album.scrollBy({ left: album.clientWidth * 0.8, behavior: "smooth" });
+
+      function capNhat() {
+        trai.hidden = album.scrollLeft <= 0;
+        phai.hidden = album.scrollLeft + album.clientWidth >= album.scrollWidth - 1;
+      }
+      album.addEventListener("scroll", capNhat);
+      window.addEventListener("resize", capNhat);
+      capNhat();
+    });
+  </script>
+</body>
+</html>

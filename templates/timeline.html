@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Timeline · {{ clb.ten }}{% endblock %}
+{% block content %}
+<section class="container narrow">
+  <h1 class="page-title">EXECUTIVE BOARD OVER YEARS</h1>
+  <div class="timeline">
+    {% for gd in giai_doan %}
+    <div class="tl-item">
+      <div class="tl-cham"></div>
+      <span class="tl-nam">{{ gd.nam }}</span>
+      <div class="tl-the">
+        <h3>{{ gd.ten }}</h3>
+        <p>{{ gd.mo_ta }}</p>
+
+        {% if gd.ds_anh %}
+        <div class="album tl-album">
+          {% for a in gd.ds_anh %}
+          <a href="{{ url_for('static', filename='images/timeline/' ~ gd.album ~ '/' ~ a) }}">
+            <img src="{{ url_for('static', filename='images/timeline/' ~ gd.album ~ '/' ~ a) }}" alt="">
+          </a>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if gd.ban_hoi_dong %}
+        <p class="tl-nhan">Board Members</p>
+        <div class="tl-bhd">
+          {% for tv in gd.ban_hoi_dong %}
+          <div class="tl-nguoi">
+            <img src="{{ url_for('static', filename='images/' ~ tv.anh) }}" alt="{{ tv.ten }}"
+                 onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+            <strong>{{ tv.ten }}</strong>
+            <span>{{ tv.chuc_vu }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<div id="xem-anh" class="xem-anh">
+  <button class="nut-dong" aria-label="Đóng">✕</button>
+  <button class="nut-truoc" aria-label="Ảnh trước">‹</button>
+  <img src="" alt="">
+  <button class="nut-sau" aria-label="Ảnh sau">›</button>
+  <div class="so-anh"></div>
+</div>
+
+<script>
+  const khung = document.getElementById("xem-anh");
+  const anhTo = khung.querySelector("img");
+  const soAnh = khung.querySelector(".so-anh");
+  let dsAnh = [], viTri = 0;
+
+  function hienAnh() {
+    anhTo.src = dsAnh[viTri];
+    soAnh.textContent = (viTri + 1) + " / " + dsAnh.length;
+  }
+  function chuyen(buoc) {
+    viTri = (viTri + buoc + dsAnh.length) % dsAnh.length;
+    hienAnh();
+  }
+  function dong() { khung.classList.remove("mo"); }
+
+  document.querySelectorAll(".album").forEach(album => {
+    const links = [...album.querySelectorAll("a")];
+    links.forEach((a, i) => a.addEventListener("click", e => {
+      e.preventDefault();
+      dsAnh = links.map(l => l.href);
+      viTri = i;
+      hienAnh();
+      khung.classList.add("mo");
+    }));
+  });
+
+  khung.querySelector(".nut-dong").onclick = dong;
+  khung.querySelector(".nut-truoc").onclick = () => chuyen(-1);
+  khung.querySelector(".nut-sau").onclick = () => chuyen(1);
+  khung.addEventListener("click", e => { if (e.target === khung) dong(); });
+  document.addEventListener("keydown", e => {
+    if (!khung.classList.contains("mo")) return;
+    if (e.key === "Escape") dong();
+    if (e.key === "ArrowLeft") chuyen(-1);
+    if (e.key === "ArrowRight") chuyen(1);
+  });
+</script>
+{% endblock %}

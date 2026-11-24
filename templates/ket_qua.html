@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Result · {{ clb.ten }}{% endblock %}
+{% block content %}
+<section class="container narrow center">
+  <div class="result">
+    <div class="result-icon">{{ kq.icon }}</div>
+    <p class="muted">Your match is:</p>
+    <h1>{{ kq.ten }}</h1>
+    <p>{{ kq.mo_ta }}</p>
+    <div class="score">
+      <div><strong>{{ dk }}</strong><span>points in sparring</span></div>
+      <div><strong>{{ q }}</strong><span>points in poomsae</span></div>
+    </div>
+    <a href="{{ url_for('trac_nghiem') }}" class="btn">Try again</a>
+    <a href="{{ url_for('su_kien') }}" class="btn btn-outline">View events</a>
+  </div>
+</section>
+{% endblock %}

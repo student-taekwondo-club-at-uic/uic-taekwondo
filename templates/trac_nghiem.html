@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Fun quizz · {{ clb.ten }}{% endblock %}
+{% block content %}
+<section class="container narrow">
+  <h1 class="page-title">You're suitable for Sparring or Poomsae? </h1>
+  <p class="center muted">Answer {{ cau_hoi|length }} fun questions to find out!</p>
+  {% if loi %}<p class="error">{{ loi }}</p>{% endif %}
+  <form method="post" class="quiz">
+    {% for cau in cau_hoi %}
+    {% set i = loop.index0 %}
+    <div class="question">
+      <h3>Question {{ loop.index }}: {{ cau.hoi }}</h3>
+      {% for lc in cau.lua_chon %}
+      <label class="option">
+        <input type="radio" name="cau{{ i }}" value="{{ loop.index0 }}"
+               {{ 'checked' if request.form.get('cau' ~ i) == loop.index0|string }}>
+        <span>{{ lc[0] }}</span>
+      </label>
+      {% endfor %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn">View results 🥋</button>
+  </form>
+</section>
+{% endblock %}

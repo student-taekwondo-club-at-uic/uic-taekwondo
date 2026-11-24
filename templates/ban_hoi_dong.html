@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}The Executive Board · {{ clb.ten }}{% endblock %}
+{% block content %}
+<section class="container">
+  <h1 class="page-title">THE BOARD</h1>
+  <div class="grid">
+    {% for tv in thanh_vien %}
+    <div class="card member">
+      <img src="{{ url_for('static', filename='images/' ~ tv.anh) }}" alt="{{ tv.ten }}"
+           onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+      <div class="card-body">
+        <span class="badge">{{ tv.chuc_vu }}</span>
+        <h3>{{ tv.ten }}</h3>
+        <p class="muted">{{ tv.dai }}</p>
+        <p>{{ tv.gioi_thieu }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero" style="background-image: url('{{ url_for('static', filename='images/banner.jpg') }}')">
+  <div class="hero-overlay">
+    <h1>{{ clb.ten }}</h1>
+    <p>{{ clb.slogan }}</p>
+  </div>
+</section>
+
+<section class="container">
+  <h2 class="section-title">Explore our club</h2>
+  <div class="menu-cards">
+    <a href="{{ url_for('ban_hoi_dong') }}" class="menu-card">
+      <span class="icon">👥</span><h3>Meet the board!!!</h3><p>Meet the leaders of the club</p>
+    </a>
+    <a href="{{ url_for('trac_nghiem') }}" class="menu-card">
+      <span class="icon">❓</span><h3>Fun quiz</h3><p>Are you more into sparring or poomsae?</p>
+    </a>
+    <a href="{{ url_for('su_kien') }}" class="menu-card">
+      <span class="icon">📅</span><h3>Events</h3><p>Activities of the club</p>
+    </a>
+    <a href="{{ url_for('about') }}" class="menu-card">
+      <span class="icon">🥋</span><h3>About us</h3><p>The story and spirit of the club</p>
+    </a>
+  </div>
+</section>
+{% endblock %}

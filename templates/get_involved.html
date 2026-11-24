@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Get Involved · {{ clb.ten }}{% endblock %}
+{% block content %}
+<section class="container">
+  <h1 class="page-title">Get Involved</h1>
+  <p class="center muted gi-intro">There are many ways to be part of our club. Pick the one that fits you!</p>
+
+  <!-- 3 ô bấm: cuộn xuống từng mục -->
+  <div class="menu-cards gi-cards">
+    <a href="#join" class="menu-card">
+      <span class="icon">🥋</span><h3>JOIN US!!!</h3><p>Become a part of our club!</p>
+    </a>
+    <a href="#fundraising" class="menu-card">
+      <span class="icon">💰</span><h3>FUNDRAISING</h3><p>Support our club and our athletes!</p>
+    </a>
+    <a href="#collab" class="menu-card">
+      <span class="icon">🤝</span><h3>COLLABORATE WITH US</h3><p>Partner with us for events and more!</p>
+    </a>
+  </div>
+
+  <!-- Mục 1: JOIN US -->
+  <div class="about gi-muc" id="join">
+    <img src="{{ url_for('static', filename='images/join.jpg') }}" alt=""
+         onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+    <div>
+      <h2>Join us</h2>
+      <p>No experience needed! Everyone is welcome, from total beginners to black belts.</p>
+      <ol>
+        <li>Fill out registration form in the Club Management System of UIC.</li>
+        <li> Scroll down to Taekwondo -> Registration -> You are engaged!!!</li>
+        <li>Follow us on Instagram for updates.</li>
+        <li>Come to a practice, Monday - Wednesday, 19:00 - 21:00 at The MAC Suite.</li>
+      </ol>
+      <a href="https://uic.dserec.com/online/clubsports" target="_blank" class="btn">Member form</a>
+    </div>
+  </div>
+
+  <!-- Mục 2: FUNDRAISING (ảnh bên phải) -->
+  <!-- Mục 2: FUNDRAISING (ảnh bên phải) -->
+  <div class="about dao gi-muc" id="fundraising">
+    <img src="{{ url_for('static', filename='images/' ~ (sk_gq.anh if sk_gq and sk_gq.anh else 'fundraising.jpg')) }}" alt=""
+         onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+    <div>
+      <h2>Fundraising</h2>
+      <p>Your support helps us pay for tournament fees, travel, and training equipment for our members.</p>
+      <ul>
+        <li>Donate directly to the club.</li>
+        <li>Come to our fundraising events.</li>
+        <li>Share our fundraisers with friends and family.</li>
+      </ul>
+      {% if sk_gq %}
+      <div class="gq-the">
+        <span class="badge">{{ nhan_gq }}</span>
+        <h3>{{ sk_gq.ten }}</h3>
+        <p class="muted">📅 {{ sk_gq.ngay }} · 📍 {{ sk_gq.dia_diem }}</p>
+        <p>{{ sk_gq.mo_ta }}</p>
+        <a href="{{ clb.instagram }}" target="_blank" class="gq-link">More on Instagram →</a>
+      </div>
+      {% endif %}
+      <a href="DAN_LINK_DONATE" target="_blank" class="btn">Check it out!</a>
+    </div>
+  </div>
+
+
+  <!-- Mục 3: COLLABORATE WITH US -->
+  <div class="about gi-muc" id="collab">
+    <img src="{{ url_for('static', filename='images/collab.jpg') }}" alt=""
+         onerror="this.src='{{ url_for('static', filename='images/placeholder.svg') }}'">
+    <div>
+      <h2>Collaborate with us</h2>
+      <p>Are you a student organization, club, or company? We love working with others on:</p>
+      <ul>
+        <li>Joint events and workshops.</li>
+        <li>Email us: taekwondo.club.uic@gmail.com</li>
+        <li>Or reach out to us through Instagram!(Linked in the footer!)</li>
+      </ul>
+      <a href="mailto:{{ clb.email }}" class="btn">Email us</a>
+      <a href="{{ clb.instagram }}" target="_blank" class="btn btn-outline">Instagram</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
